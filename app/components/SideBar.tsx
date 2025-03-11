@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaProjectDiagram, FaTasks } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 
@@ -10,6 +11,7 @@ interface SideBarProps {
 
 const SideBar = ({ children }: SideBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsOpen(false);
@@ -40,7 +42,7 @@ const SideBar = ({ children }: SideBarProps) => {
             {links.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>
-                  <div className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                  <div className={`flex items-center p-2 rounded-lg group ${pathname === link.href ? 'bg-blue-500 text-white' : 'text-gray-900 hover:bg-gray-100'}`}>
                     {link.icon}
                     <span className="flex-1 ms-3 whitespace-nowrap">{link.label}</span>
                   </div>
