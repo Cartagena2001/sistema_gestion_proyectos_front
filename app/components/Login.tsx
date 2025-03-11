@@ -14,7 +14,7 @@ export function Login() {
             <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                        Iniciar Session
+                        Inicia sesión
                     </h1>
                     <form className="space-y-4 md:space-y-6" action="#">
                         <div>
@@ -36,7 +36,7 @@ export function Login() {
                             </div>
                         </div>
                         <div className="flex items-center justify-between">
-                            <Link href="dashboard" type="submit" className="bg-blue-500 cursor-pointer hover:bg-blue-700 transition-all w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Iniciar session</Link>
+                            <Link href="dashboard" type="submit" className="bg-blue-500 cursor-pointer hover:bg-blue-700 transition-all w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Inicia sesión</Link>
                         </div>
                     </form>
                 </div>

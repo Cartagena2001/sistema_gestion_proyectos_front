@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaProjectDiagram, FaTasks } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
+import { FaUserFriends } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
 
 interface SideBarProps {
   children: ReactNode;
@@ -25,6 +27,8 @@ const SideBar = ({ children }: SideBarProps) => {
     { href: '/dashboard', label: 'Dashboard', icon: <MdDashboard /> },
     { href: '/dashboard/proyectos', label: 'Proyectos', icon: <FaProjectDiagram /> },
     { href: '/dashboard/proyectos/tareas', label: 'Tareas', icon: <FaTasks /> },
+    { href: '/dashboard/users', label: 'Usuarios', icon: <FaUserFriends /> },
+    { href: '/', label: 'Cerrar sesion', icon: <CiLogout /> },
   ]
 
   return (
