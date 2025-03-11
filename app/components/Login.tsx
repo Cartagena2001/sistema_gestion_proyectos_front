@@ -35,7 +35,9 @@ export function Login() {
                                 </div>
                             </div>
                         </div>
-                        <Link href="dashboard" type="submit" className="bg-red-500 cursor-pointer hover:bg-red-600 transition-all w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Iniciar session</Link>
+                        <div className="flex items-center justify-between">
+                            <Link href="dashboard" type="submit" className="bg-blue-500 cursor-pointer hover:bg-blue-700 transition-all w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Iniciar session</Link>
+                        </div>
                     </form>
                 </div>
             </div>
