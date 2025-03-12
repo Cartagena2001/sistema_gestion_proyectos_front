@@ -39,14 +39,14 @@ const SideBar = ({ children }: SideBarProps) => {
           <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
         </svg>
       </button>
-      <aside id="default-sidebar" className={`z-10 mt-12 lg:mt-0 fixed top-0 left-0  w-64 h-screen transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0`} aria-label="Sidebar">
+      <aside id="default-sidebar" className={`bg-slate-100 z-10 mt-12 lg:mt-0 fixed top-0 left-0  w-64 h-screen transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0`} aria-label="Sidebar">
         <h1 className='p-5 text-2xl font-bold text-gray-900'>Gestion de proyectos</h1>
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-slate-100">
           <ul className="space-y-2 font-medium">
             {links.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>
-                  <div className={`flex items-center p-2 rounded-lg group ${pathname === link.href ? 'bg-blue-500 text-white' : 'text-gray-900 hover:bg-gray-100'}`}>
+                  <div className={`flex items-center p-2 rounded-lg group ${pathname === link.href ? 'bg-slate-950 text-white' : 'text-gray-900 hover:bg-gray-100'}`}>
                     {link.icon}
                     <span className="flex-1 ms-3 whitespace-nowrap">{link.label}</span>
                   </div>
@@ -57,7 +57,7 @@ const SideBar = ({ children }: SideBarProps) => {
         </div>
       </aside>
 
-      <div className="p-10 sm:ml-64 z-20">
+      <div className="p-10 sm:ml-64 z-20 ">
         {children}
       </div>
     </>

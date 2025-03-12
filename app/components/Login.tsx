@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button"
 
 export function Login() {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -36,7 +37,9 @@ export function Login() {
                             </div>
                         </div>
                         <div className="flex items-center justify-between">
-                            <Link href="dashboard" type="submit" className="bg-blue-500 cursor-pointer hover:bg-blue-700 transition-all w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Inicia sesión</Link>
+                            <Link href="dashboard">
+                                <Button>Inicia sesión</Button>
+                            </Link>
                         </div>
                     </form>
                 </div>
