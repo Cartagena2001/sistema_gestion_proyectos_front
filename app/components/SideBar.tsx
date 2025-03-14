@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { FaProjectDiagram, FaTasks } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
-import { CiLogout } from "react-icons/ci";
 
 interface SideBarProps {
   children: ReactNode;
@@ -28,7 +27,6 @@ const SideBar = ({ children }: SideBarProps) => {
     { href: '/dashboard/proyectos', label: 'Proyectos', icon: <FaProjectDiagram /> },
     { href: '/dashboard/proyectos/tareas', label: 'Tareas', icon: <FaTasks /> },
     { href: '/dashboard/users', label: 'Usuarios', icon: <FaUserFriends /> },
-    { href: '/', label: 'Cerrar sesion', icon: <CiLogout /> },
   ]
 
   return (
@@ -54,9 +52,9 @@ const SideBar = ({ children }: SideBarProps) => {
               </li>
             ))}
           </ul>
+
         </div>
       </aside>
-
       <div className="p-10 sm:ml-64 z-20 ">
         {children}
       </div>
