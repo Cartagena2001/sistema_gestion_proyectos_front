@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
+import { login, signup } from "../actions";
 
 export function Login() {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -27,19 +28,8 @@ export function Login() {
                             <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required />
                         </div>
                         <div className="flex items-center justify-between">
-                            <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" required />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                <label htmlFor="remember" className="text-gray-500">Recuerdame</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <Link href="dashboard">
-                                <Button>Inicia sesión</Button>
-                            </Link>
+                            <Button formAction={signup}>Registrate</Button>
+                            <Button formAction={login}>Ya tienes una cuenta? inicia session</Button>
                         </div>
                     </form>
                 </div>
