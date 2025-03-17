@@ -1,7 +1,7 @@
 import React from "react";
-import { TemplateTable } from "@/app/components/DataTable";
 import TitlePage from "@/app/components/TitlePage";
 import { ModalAddProject } from "@/app/components/Modals/projects/AddProject";
+import { TableProjects } from "@/app/components/Modals/projects/TableProjects";
 
 export const page = () => {
   return (
@@ -14,7 +14,7 @@ export const page = () => {
         <ModalAddProject />
       </div>
       <div className="border p-5 rounded-4xl shadow-sm">
-        <TemplateTable />
+        <TableProjects />
       </div>
     </div>
   );
