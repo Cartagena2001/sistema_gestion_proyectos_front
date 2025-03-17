@@ -1,7 +1,7 @@
-"use client"
+"use client";
+
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -11,19 +11,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { FormProject } from "./FormProject";
-import { Project } from "./FormProject";
+import { FormTaskUser } from "./FormTaskUser";
+import { TaskUser } from "./FormTaskUser";
 import { useState } from "react";
 
-interface ModalAddProjectProps {
-  initialData?: Project;
+interface ModalAddTaskUserProps {
+  initialData?: TaskUser;
   onSubmitCallback?: () => void;
 }
 
-export function ModalAddProject({
-  initialData,
-  onSubmitCallback,
-}: ModalAddProjectProps) {
+export function ModalAddTaskUser({ initialData, onSubmitCallback }: ModalAddTaskUserProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (open: boolean) => {
@@ -37,21 +34,21 @@ export function ModalAddProject({
     <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="cursor-pointer">
-          {initialData ? "Editar proyecto" : "Agregar nuevo proyecto"}
+          {initialData ? "Editar asignación" : "Asignar usuario a tarea"}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {initialData ? "Editar proyecto" : "Agregar un nuevo proyecto"}
+            {initialData ? "Editar asignación de tarea" : "Nueva asignación de tarea"}
           </AlertDialogTitle>
           <AlertDialogDescription>
             {initialData
-              ? "Edita los detalles del proyecto."
-              : "Agrega los detalles del nuevo proyecto."}
+              ? "Edita los detalles de la asignación."
+              : "Asigna un usuario a una tarea."}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <FormProject
+        <FormTaskUser
           initialData={initialData}
           onSubmitCallback={() => handleOpenChange(false)}
         />

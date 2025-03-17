@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,19 +11,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { FormProject } from "./FormProject";
-import { Project } from "./FormProject";
+import { FormTask } from "./FormTask";
+import { Task } from "./FormTask";
 import { useState } from "react";
 
-interface ModalAddProjectProps {
-  initialData?: Project;
+interface ModalAddTaskProps {
+  initialData?: Task;
   onSubmitCallback?: () => void;
 }
 
-export function ModalAddProject({
-  initialData,
-  onSubmitCallback,
-}: ModalAddProjectProps) {
+export function ModalAddTask({ initialData, onSubmitCallback }: ModalAddTaskProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (open: boolean) => {
@@ -37,21 +34,21 @@ export function ModalAddProject({
     <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="cursor-pointer">
-          {initialData ? "Editar proyecto" : "Agregar nuevo proyecto"}
+          {initialData ? "Editar tarea" : "Agregar nueva tarea"}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {initialData ? "Editar proyecto" : "Agregar un nuevo proyecto"}
+            {initialData ? "Editar tarea" : "Agregar una nueva tarea"}
           </AlertDialogTitle>
           <AlertDialogDescription>
             {initialData
-              ? "Edita los detalles del proyecto."
-              : "Agrega los detalles del nuevo proyecto."}
+              ? "Edita los detalles de la tarea."
+              : "Agrega los detalles de la nueva tarea."}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <FormProject
+        <FormTask
           initialData={initialData}
           onSubmitCallback={() => handleOpenChange(false)}
         />
