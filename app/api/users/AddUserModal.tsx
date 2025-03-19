@@ -11,16 +11,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { FormUser } from "./FormUser";  // Aquí cambiamos de FormTask a FormUser
-import { User } from "./FormUser";  // Aquí cambiamos de Task a User
+import { FormUserModal } from "./FormUserModal"; // Ajustamos el nombre
+import { User } from "./FormUserModal"; 
 import { useState } from "react";
 
-interface ModalAddUserProps {
+interface AddUserModalProps {
   initialData?: User;
   onSubmitCallback?: () => void;
 }
 
-export function ModalAddUser({ initialData, onSubmitCallback }: ModalAddUserProps) {
+export function AddUserModal({ initialData, onSubmitCallback }: AddUserModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (open: boolean) => {
@@ -48,7 +48,7 @@ export function ModalAddUser({ initialData, onSubmitCallback }: ModalAddUserProp
               : "Agrega los detalles del nuevo usuario."}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <FormUser
+        <FormUserModal
           initialData={initialData}
           onSubmitCallback={() => handleOpenChange(false)}
         />
@@ -59,3 +59,4 @@ export function ModalAddUser({ initialData, onSubmitCallback }: ModalAddUserProp
     </AlertDialog>
   );
 }
+
