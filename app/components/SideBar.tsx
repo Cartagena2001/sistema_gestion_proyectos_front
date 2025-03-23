@@ -8,22 +8,41 @@ import { FaUserFriends } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+import Swal from 'sweetalert2';
 
 interface SideBarProps {
   children: ReactNode;
 }
 
 const SideBar = ({ children }: SideBarProps) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [user, setUser] = useState<User>();
   const [isMounted, setIsMounted] = useState(false);
-  const handleSignOut = async () => {
-    const { error } = await createClient().auth.signOut();
-    if (!error) {
-      setUser(undefined);
-      window.location.href = "/";
-    }
+  const handleSignOut = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas cerrar la sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem('userData');
+        router.push('/');
+        Swal.fire(
+          '¡Sesión cerrada!',
+          'Has cerrado sesión correctamente.',
+          'success'
+        );
+      }
+    });
   };
 
   useEffect(() => {

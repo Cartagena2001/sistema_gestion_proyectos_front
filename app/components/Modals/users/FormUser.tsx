@@ -30,21 +30,23 @@ interface Role {
   nombre: string;
 }
 
+// Update the User interface
 export interface User {
   id: string;
   nombre_usuario: string;
   email: string;
-  contraseña: string;
+  password: string;  // Changed from contraseña
   rol_id: number;
   roles?: {
     nombre: string;
   };
 }
 
+// Update the form schema
 const formSchema = z.object({
   nombre_usuario: z.string().min(1, "El nombre de usuario es obligatorio."),
   email: z.string().email("Correo electrónico inválido."),
-  contraseña: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."), // Changed from contraseña
   rol_id: z.coerce.number().min(1, "El rol es obligatorio."),
 });
 
@@ -59,7 +61,7 @@ export function FormUser({ initialData, onSubmitCallback }: FormUserProps) {
     defaultValues: {
       nombre_usuario: initialData?.nombre_usuario || "",
       email: initialData?.email || "",
-      contraseña: initialData?.contraseña || "",
+      password: initialData?.password || "",  // Changed from contraseña
       rol_id: initialData?.rol_id || 2, // Default to role 2 (non-admin) for new users
     },
   });
@@ -141,7 +143,7 @@ export function FormUser({ initialData, onSubmitCallback }: FormUserProps) {
         {/* Contraseña */}
         <FormField
           control={form.control}
-          name="contraseña"
+          name="password"  // Changed from contraseña
           render={({ field }) => (
             <FormItem>
               <FormLabel>Contraseña</FormLabel>
