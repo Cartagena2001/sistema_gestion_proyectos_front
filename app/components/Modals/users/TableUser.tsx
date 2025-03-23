@@ -13,72 +13,78 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
-import { ModalAddTaskUser } from "./AddTaskUser";
-import { TaskUser } from "./FormTaskUser";
+import { ModalAddUser } from "./AddUser";
+import { User } from "./FormUser";
 
-export function TableTaskUsers() {
-  const [taskUsers, setTaskUsers] = useState<TaskUser[]>([]);
-  const [selectedTaskUser, setSelectedTaskUser] = useState<TaskUser | null>(null);
+export function TableUsers() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  async function fetchTaskUsers() {
+  async function fetchUsers() {
     const supabase = createClient();
     const { data, error } = await supabase
-      .from("tareas_usuarios")
+      .from("usuarios")
       .select(`
-        id,
-        tarea_id,
-        usuario_id,
-        fecha_asignacion,
-        tareas (nombre),
-        usuarios (nombre_usuario)
+        id, 
+        nombre_usuario, 
+        email,
+        roles (nombre).
+        rol_id
       `)
-      .returns<TaskUser[]>();
+      .neq('rol_id', 1)
+      .returns<User[]>();
 
     if (error) {
-      toast.error("Ocurrió un error al obtener las asignaciones");
+      toast.error("Ocurrió un error al obtener los usuarios");
       return;
     }
-    setTaskUsers(data || []);
+    setUsers(data || []);
   }
 
   useEffect(() => {
-    fetchTaskUsers();
-  }, []);
+    fetchUsers();
+  }, [refreshKey]);
 
-  async function handleTaskUserDelete(taskUserId: string) {
+  async function handleUserDelete(userId: string) {
     const supabase = createClient();
-    const { error } = await supabase.from("tareas_usuarios").delete().eq("id", taskUserId);
+    const { error } = await supabase.from("usuarios").delete().eq("id", userId);
 
     if (error) {
-      toast.error("Ocurrió un error al eliminar la asignación");
+      toast.error("Ocurrió un error al eliminar el usuario");
       return;
     }
-    toast.success("Asignación eliminada exitosamente");
-    setTaskUsers(taskUsers.filter((taskUser) => taskUser.id !== taskUserId));
+    toast.success("Usuario eliminado exitosamente");
+    setUsers(users.filter((user) => user.id !== userId));
   }
+
+  const handleRefresh = () => {
+    fetchUsers();
+    setRefreshKey(prev => prev + 1);
+  };
 
   return (
     <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Tarea ID</TableHead>
-            <TableHead>Usuario ID</TableHead>
-            <TableHead>Fecha de Asignación</TableHead>
+            <TableHead>Nombre de Usuario</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Rol</TableHead>
             <TableHead className="text-right">Acción</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {taskUsers.map((taskUser) => (
-            <TableRow key={taskUser.id}>
-              <TableCell className="font-medium">{taskUser.tareas.nombre}</TableCell>
-              <TableCell>{taskUser.usuarios.nombre_usuario}</TableCell>
-              <TableCell>{taskUser.fecha_asignacion || "Sin fecha"}</TableCell>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="font-medium">{user.nombre_usuario}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.roles?.nombre || "Sin rol"}</TableCell>
               <TableCell className="text-right">
                 <div className="flex flex-col gap-1">
-                  <ModalAddTaskUser
-                    initialData={taskUser}
-                    onSubmitCallback={fetchTaskUsers}
+                  <ModalAddUser
+                    initialData={user}
+                    onSubmitCallback={handleRefresh}
                   />
                   <Button
                     className="bg-red-500 cursor-pointer"
@@ -90,14 +96,14 @@ export function TableTaskUsers() {
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-                        confirmButtonText: "Sí, eliminarla",
+                        confirmButtonText: "Sí, eliminarlo",
                         cancelButtonText: "Cancelar",
                       }).then((result) => {
                         if (result.isConfirmed) {
-                          if (taskUser.id) {
-                            handleTaskUserDelete(taskUser.id);
+                          if (user.id) {
+                            handleUserDelete(user.id);
                           } else {
-                            toast.error("ID de asignación no válido");
+                            toast.error("ID de usuario no válido");
                           }
                         }
                       });
@@ -111,12 +117,12 @@ export function TableTaskUsers() {
           ))}
         </TableBody>
       </Table>
-      {selectedTaskUser && (
-        <ModalAddTaskUser
-          initialData={selectedTaskUser}
+      {selectedUser && (
+        <ModalAddUser
+          initialData={selectedUser}
           onSubmitCallback={() => {
-            fetchTaskUsers();
-            setSelectedTaskUser(null);
+            fetchUsers();
+            setSelectedUser(null);
           }}
         />
       )}

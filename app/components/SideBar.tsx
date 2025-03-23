@@ -50,7 +50,7 @@ const SideBar = ({ children }: SideBarProps) => {
 
   if (!isMounted) return null;
 
-  // console.log(user);
+  console.log(user);
 
   const links = [
     { href: "/dashboard", label: "Dashboard", icon: <MdDashboard /> },

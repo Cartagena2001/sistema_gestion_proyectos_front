@@ -1,5 +1,5 @@
-import { TemplateTable } from "@/app/components/DataTable";
-import { ModalAddUser } from "@/app/components/Modals/users/AddProject";
+import { ModalAddUser } from "@/app/components/Modals/users/AddUser";
+import { TableUsers } from "@/app/components/Modals/users/TableUser";
 import TitlePage from "@/app/components/TitlePage";
 import React from "react";
 
@@ -14,7 +14,7 @@ export const page = () => {
         <ModalAddUser />
       </div>
       <div className="border p-5 rounded-4xl shadow-sm">
-        <TemplateTable />
+        <TableUsers />
       </div>
     </div>
   );
