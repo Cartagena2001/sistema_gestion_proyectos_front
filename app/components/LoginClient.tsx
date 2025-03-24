@@ -17,10 +17,8 @@ export function LoginClient() {
       const response = await loginWithCredentials(email, password);
       
       if (response) {
-        // Store token in cookies
         document.cookie = `token=${response.token}; path=/; max-age=86400`;
         
-        // Store user data in localStorage
         localStorage.setItem('userData', JSON.stringify(response.user));
         
         toast.success('Inicio de sesión exitoso');
@@ -29,7 +27,7 @@ export function LoginClient() {
         toast.error('Credenciales inválidas');
       }
     } catch (error) {
-      toast.error('Error al iniciar sesión');
+      toast.error('Error al iniciar sesión' + error);
     }
   };
 
