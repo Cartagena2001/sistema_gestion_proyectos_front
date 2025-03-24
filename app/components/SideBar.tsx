@@ -80,6 +80,7 @@ const SideBar = ({ children }: SideBarProps) => {
       permission: 'projects'
     },
     { href: "/dashboard/proyectos/tareas", label: "Tareas", icon: <FaTasks />, permission: 'tasks' },
+    { href: "/dashboard/mis_proyectos", label: "Mis proyectos", icon: <FaTasks />, permission: 'project_view' },
     { href: "/dashboard/users", label: "Usuarios", icon: <FaUserFriends />, permission: 'users'  },
   ];
 

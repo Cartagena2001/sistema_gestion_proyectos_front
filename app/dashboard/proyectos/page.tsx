@@ -3,6 +3,7 @@ import TitlePage from "@/app/components/TitlePage";
 import { ModalAddProject } from "@/app/components/Modals/projects/AddProject";
 import { TableProjects } from "@/app/components/Modals/projects/TableProjects";
 import { RoleProtectedRoute } from '@/app/components/RoleProtectedRoute';
+import { ProjectView } from "@/app/components/projects/ProjectView";
 
 export const page = () => {
   return (
