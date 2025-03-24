@@ -2,9 +2,11 @@ import React from "react";
 import TitlePage from "@/app/components/TitlePage";
 import { ModalAddProject } from "@/app/components/Modals/projects/AddProject";
 import { TableProjects } from "@/app/components/Modals/projects/TableProjects";
+import { RoleProtectedRoute } from '@/app/components/RoleProtectedRoute';
 
 export const page = () => {
   return (
+    <RoleProtectedRoute requiredPermission="projects">
     <div>
       <div className="flex align-center justify-between">
         <TitlePage
@@ -17,6 +19,7 @@ export const page = () => {
         <TableProjects />
       </div>
     </div>
+    </RoleProtectedRoute>
   );
 };
 

@@ -2,9 +2,11 @@ import { ModalAddUser } from "@/app/components/Modals/users/AddUser";
 import { TableUsers } from "@/app/components/Modals/users/TableUser";
 import TitlePage from "@/app/components/TitlePage";
 import React from "react";
+import { RoleProtectedRoute } from '@/app/components/RoleProtectedRoute';
 
 export const page = () => {
   return (
+    <RoleProtectedRoute requiredPermission="users">
     <div>
       <div className="flex align-center justify-between">
         <TitlePage
@@ -17,6 +19,7 @@ export const page = () => {
         <TableUsers />
       </div>
     </div>
+    </RoleProtectedRoute>
   );
 };
 
