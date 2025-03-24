@@ -29,7 +29,6 @@ export function TableProjects() {
       toast.error("Ocurrio un error al obtener los proyectos");
       return;
     } else {
-      console.log(data);
       setProjects(data || []);
     }
   }

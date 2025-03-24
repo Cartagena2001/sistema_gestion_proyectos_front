@@ -1,21 +1,46 @@
 "use client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { loginWithCredentials } from "../services/auth.service";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
-export function Login() {
+export function LoginClient() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      const response = await loginWithCredentials(email, password);
+      
+      if (response) {
+        document.cookie = `token=${response.token}; path=/; max-age=86400`;
+        
+        localStorage.setItem('userData', JSON.stringify(response.user));
+        
+        toast.success('Inicio de sesión exitoso');
+        router.push('/dashboard');
+      } else {
+        toast.error('Credenciales inválidas');
+      }
+    } catch (error) {
+      toast.error('Error al iniciar sesión' + error);
+    }
+  };
 
   return (
     <section className="">
+      <Toaster />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900"
-        ></a>
         <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Inicia sesión
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -27,6 +52,8 @@ export function Login() {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="name@company.com"
                   required
@@ -43,21 +70,17 @@ export function Login() {
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 />
               </div>
               <div className="flex items-center justify-between">
-                <div>
-                  <Button className="cursor-pointer">Iniciar sesión</Button>
-                </div>
-              </div>
-              <div className="w-full">
-                <span className="text-sm text-slate-600 font-light">
-                  No tienes cuenta aun? ingresa tu correo y registrate.
-                </span>
-                <Button className="cursor-pointer">Registrate Ahora!</Button>
+                <Button type="submit" className="cursor-pointer">
+                  Iniciar sesión
+                </Button>
               </div>
             </form>
           </div>
@@ -67,4 +90,4 @@ export function Login() {
   );
 }
 
-export default Login;
+export default LoginClient;

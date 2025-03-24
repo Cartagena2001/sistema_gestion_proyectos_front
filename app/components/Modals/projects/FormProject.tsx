@@ -24,7 +24,6 @@ import {
 import { useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import toast, { Toaster } from "react-hot-toast";
-import { TableProjects } from "./TableProjects";
 
 export interface Project {
   id: string;

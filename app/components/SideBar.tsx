@@ -8,22 +8,43 @@ import { FaUserFriends } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+import Swal from 'sweetalert2';
+import { useRoleAccess } from '../hooks/useRoleAccess';
 
 interface SideBarProps {
   children: ReactNode;
 }
 
 const SideBar = ({ children }: SideBarProps) => {
+  const { hasAccess } = useRoleAccess();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [user, setUser] = useState<User>();
   const [isMounted, setIsMounted] = useState(false);
-  const handleSignOut = async () => {
-    const { error } = await createClient().auth.signOut();
-    if (!error) {
-      setUser(undefined);
-      window.location.href = "/";
-    }
+  const handleSignOut = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas cerrar la sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem('userData');
+        router.push('/');
+        Swal.fire(
+          '¡Sesión cerrada!',
+          'Has cerrado sesión correctamente.',
+          'success'
+        );
+      }
+    });
   };
 
   useEffect(() => {
@@ -50,18 +71,20 @@ const SideBar = ({ children }: SideBarProps) => {
 
   if (!isMounted) return null;
 
-  // console.log(user);
-
   const links = [
-    { href: "/dashboard", label: "Dashboard", icon: <MdDashboard /> },
+    { href: "/dashboard", label: "Dashboard", icon: <MdDashboard />, permission: 'dashboard' },
     {
       href: "/dashboard/proyectos",
       label: "Proyectos",
       icon: <FaProjectDiagram />,
+      permission: 'projects'
     },
-    { href: "/dashboard/proyectos/tareas", label: "Tareas", icon: <FaTasks /> },
-    { href: "/dashboard/users", label: "Usuarios", icon: <FaUserFriends /> },
+    { href: "/dashboard/proyectos/tareas", label: "Tareas", icon: <FaTasks />, permission: 'tasks' },
+    { href: "/dashboard/mis_proyectos", label: "Mis proyectos", icon: <FaTasks />, permission: 'project_view' },
+    { href: "/dashboard/users", label: "Usuarios", icon: <FaUserFriends />, permission: 'users'  },
   ];
+
+  const authorizedLinks = links.filter(link => hasAccess(link.permission));
 
   return (
     <>
@@ -100,7 +123,7 @@ const SideBar = ({ children }: SideBarProps) => {
         </h1>
         <div className="h-full px-3 py-4 overflow-y-auto bg-slate-100">
           <ul className="space-y-2 font-medium">
-            {links.map((link) => (
+             {authorizedLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>
                   <div
