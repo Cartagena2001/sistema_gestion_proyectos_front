@@ -7,7 +7,7 @@ export const ROLES = {
 type RoleId = (typeof ROLES)[keyof typeof ROLES];
 
 export const ROLE_PERMISSIONS: Record<RoleId, readonly string[]> = {
-  1: ['projects', 'tasks', 'task_users', 'users'],
-  2: ['task_users', 'project_view'],
-  4: ['projects', 'tasks', 'task_users']
+  1: ['dashboard', 'projects', 'tasks', 'task_users', 'users'],
+  2: ['dashboard', 'task_users', 'project_view'],
+  4: ['dashboard', 'projects', 'tasks', 'task_users']
 };
