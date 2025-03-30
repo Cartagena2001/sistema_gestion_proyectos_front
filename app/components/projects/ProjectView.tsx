@@ -18,32 +18,37 @@ export function ProjectView() {
       const userData = localStorage.getItem("userData");
       const user = userData ? JSON.parse(userData) : null;
 
-      const { data: projectsData } = await supabase
-        .from("proyectos")
-        .select("*")
-        .order("fecha_inicio", { ascending: false });
-
-      if (projectsData) {
-        setProjects(projectsData);
-      }
-
       if (user) {
+        // First fetch user's tasks
         const { data: tasksData } = await supabase
           .from("tareas")
-          .select(
-            `
+          .select(`
             *,
             tareas_usuarios!inner(usuario_id)
-          `
-          )
+          `)
           .eq("tareas_usuarios.usuario_id", user.id)
           .order("fecha_vencimiento", { ascending: true });
 
         if (tasksData) {
           setTasks(tasksData);
+          
+          // Get unique project IDs from user's tasks
+          const userProjectIds = [...new Set(tasksData.map(task => task.proyecto_id))];
+          
+          // Only fetch projects that user has tasks in
+          if (userProjectIds.length > 0) {
+            const { data: projectsData } = await supabase
+              .from("proyectos")
+              .select("*")
+              .in('id', userProjectIds)
+              .order("fecha_inicio", { ascending: false });
+
+            if (projectsData) {
+              setProjects(projectsData);
+            }
+          }
         }
       }
-
       setLoading(false);
     };
 
@@ -86,6 +91,17 @@ export function ProjectView() {
 
   if (loading) {
     return <div>Cargando...</div>;
+  }
+
+  if (tasks.length === 0) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="text-center text-gray-500">
+          <h3 className="text-lg font-semibold mb-2">Aún no tienes tareas asignadas</h3>
+          <p className="text-sm">Cuando te asignen tareas, aparecerán aquí.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
