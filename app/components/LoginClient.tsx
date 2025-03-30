@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { loginWithCredentials } from "../services/auth.service";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 export function LoginClient() {
   const [email, setEmail] = useState("");
@@ -82,6 +83,12 @@ export function LoginClient() {
                   Iniciar sesión
                 </Button>
               </div>
+              <div className="text-center text-sm">
+              ¿No tienes una cuenta?{" "}
+              <Link href="/register" className="text-blue-500 hover:underline">
+                Registrate
+              </Link>
+            </div>
             </form>
           </div>
         </div>
