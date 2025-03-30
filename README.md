@@ -2,10 +2,12 @@
 
 Este es un proyecto realizado para la materia de Desarrollo de Software. Permite a los usuarios registrarse, iniciar sesión y gestionar proyectos y tareas de manera sencilla.
 
-🔗 Enlace del proyecto:  
+🔗 **Enlace del proyecto:**  
 https://sistema-gestion-proyectos-front.vercel.app/dashboard
 
-## Tecnologías utilizadas
+---
+
+## 🛠️ Tecnologías utilizadas
 
 - React
 - Next.js
@@ -13,17 +15,28 @@ https://sistema-gestion-proyectos-front.vercel.app/dashboard
 - Supabase
 - TypeScript
 
-## Funcionalidades
+---
+
+## ✅ Funcionalidades
 
 - Registro e inicio de sesión de usuarios
 - Crear y administrar proyectos
 - Asignar tareas
 - Interfaz adaptable a dispositivos móviles
-  Intrgrantes 
-Guillermo Salvador Cartagena Mejía – CM213015
 
-Alan Anderson Vásquez Leiva – VL221407
+---
 
-Kelly Abigail Vásquez Rodríguez – VR220916
+## 👥 Integrantes
 
-Julio César Posada Ramírez – PR222058
+- **Guillermo Salvador Cartagena Mejía** – CM213015  
+- **Alan Anderson Vásquez Leiva** – VL221407  
+- **Kelly Abigail Vásquez Rodríguez** – VR220916  
+- **Julio César Posada Ramírez** – PR222058
+
+---
+
+## 👨‍🏫 Profesor
+
+**Alexander Sigüenza** – alexander.siguenza@udb.edu.sv
+
+
