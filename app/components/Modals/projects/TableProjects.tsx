@@ -17,7 +17,11 @@ import Swal from "sweetalert2";
 import { ModalAddProject } from "./AddProject";
 import { Project } from "./FormProject";
 
+// Add import at the top
+import { useRouter } from "next/navigation";
+
 export function TableProjects() {
+  const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -82,6 +86,12 @@ export function TableProjects() {
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex flex-col gap-1">
+                  <Button
+                    className="bg-blue-500 cursor-pointer"
+                    onClick={() => router.push(`/dashboard/proyectos/${project.id}`)}
+                  >
+                    Ver proyecto
+                  </Button>
                   <ModalAddProject
                     initialData={project}
                     onSubmitCallback={fetchProjects}
