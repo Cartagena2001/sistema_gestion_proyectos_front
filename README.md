@@ -4,6 +4,7 @@ Este es un proyecto realizado para la materia de Desarrollo de Software. Permite
 
 🔗 **Enlace del proyecto:**  
 https://sistema-gestion-proyectos-front.vercel.app/dashboard
+
 🔗 **Enlace del video 📽️:** 
 https://youtu.be/U6NSOFVNRoM
 ---
